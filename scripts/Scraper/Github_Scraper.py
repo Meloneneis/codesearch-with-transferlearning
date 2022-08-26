@@ -13,12 +13,12 @@ def request_pages(args):
 
     response = requests.request("GET", url, headers=headers).json()
 
-    for page_index in range
-    id_set = set()
-    for item in response.json()["items"]:
-        id_set.add(item["repository"]["id"])
+    for page_index in range(3):
+        id_set = set()
+        for item in response.json()["items"]:
+            id_set.add(item["repository"]["id"])
 
-    return None
+        return None
 
 
 def main():

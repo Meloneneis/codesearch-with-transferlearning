@@ -1,10 +1,27 @@
 from datasets import load_dataset, interleave_datasets, DatasetDict
 import re
 import argparse
+import pyparsing
 
 
 def map_doc_and_func(example):
-    example["text"] = example["func_documentation_string"] + "<c>" + example["whole_func_string"]
+    filtered_func = example["whole_func_string"]
+    if example["language"] == "java":
+        filtered_func = pyparsing.javaStyleComment.suppress().transformString(example["whole_func_string"])
+    elif example["language"] == "go":
+        filtered_func = pyparsing.javaStyleComment.suppress().transformString(example["whole_func_string"])
+    elif example["language"] == "python":
+        filtered_func = pyparsing.pythonStyleComment.suppress().transformString(example["whole_func_string"])
+        filtered_func = pyparsing.nestedExpr('"""', '""').suppress().transformString(filtered_func)
+        filtered_func = pyparsing.nestedExpr("'''", "''").suppress().transformString(filtered_func)
+    elif example["language"] == "ruby":
+        filtered_func = pyparsing.pythonStyleComment.suppress().transformString(example["whole_func_string"])
+        filtered_func = pyparsing.nestedExpr("=begin", "=end").suppress().transformString(filtered_func)
+    elif example["language"] == "php":
+        filtered_func = pyparsing.javaStyleComment.suppress().transformString(example["whole_func_string"])
+    elif example["language"] == "javascript":
+        filtered_func = pyparsing.javaStyleComment.suppress().transformString(example["whole_func_string"])
+    example["text"] = example["func_documentation_string"] + "<c>" + filtered_func
     return example
 
 

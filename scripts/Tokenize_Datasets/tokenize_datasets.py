@@ -1,5 +1,5 @@
 from itertools import chain
-from datasets import load_dataset, load_from_disk
+from datasets import load_from_disk
 from transformers import AutoTokenizer
 import argparse
 
@@ -25,6 +25,7 @@ def main():
         batched=True,
         remove_columns=column_names,
         desc="Running tokenizer on every text in dataset",
+        load_from_cache_file=False
     )
 
     def group_texts(examples):
@@ -46,6 +47,7 @@ def main():
         group_texts,
         batched=True,
         desc=f"Grouping texts in chunks of {max_seq_length}",
+        load_from_cache_file=False,
     )
 
     tokenized_datasets.save_to_disk(args.output_dir)

@@ -67,16 +67,17 @@ def remove_comments_and_docstrings(source,lang):
 
 def map_doc_and_func(example):
     filtered_func = remove_comments_and_docstrings(example["whole_func_string"], example["language"])
-    return example["func_documentation_string"] + "<c>" + filtered_func
+    example["text"] = example["func_documentation_string"] + "<c>" + filtered_func
+    return example
 
 
 def main():
     parser = argparse.ArgumentParser(description="Combine two datasets to produce a merge file")
 
-    parser.add_argument("--datasets", type=str, required=True, help="Input string and datasets delimited by ,")
-    parser.add_argument("--configs", type=str, required=True, help="Input string and configs delimited by ,")
+    parser.add_argument("--datasets", type=str, default="emotion,code_search_net", help="Input string and datasets delimited by ,")
+    parser.add_argument("--configs", type=str, default="None,ruby", help="Input string and configs delimited by ,")
     parser.add_argument("--validation_split_percentage", type=int, default=5)
-    parser.add_argument("--distribution", type=str, required=True, help="Input string and distribution delimited by ,")
+    parser.add_argument("--distribution", type=str, default="0.5,0.5", help="Input string and distribution delimited by ,")
     parser.add_argument("--cache_dir", type=str, default=None)
     parser.add_argument("--output_dir", type=str, default="")
 

@@ -117,7 +117,7 @@ def main():
     interleaved_validation_dataset = interleave_datasets([x["validation"] for x in dataset_list], probabilities=distribution)
     interleaved_dataset = DatasetDict({"train": interleaved_train_dataset, "validation": interleaved_validation_dataset})
     string_name = "-".join(f"{x}{y}" for (x, y) in zip(datasets, distribution))
-    interleaved_dataset.save_to_disk(f"{args.output_dir}{string_name}-trainvalid-dataset")
+    interleaved_dataset.save_to_disk(f"{args.output_dir}/{string_name}-trainvalid-dataset")
 
 
 if __name__ == "__main__":

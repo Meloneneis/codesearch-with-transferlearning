@@ -9,7 +9,7 @@ headers = {
     'Authorization': 'Token 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'
 }
 star_count = 9
-id_set = jsonpickle.decode(json.load((open("repo_list.json"))))
+id_set = jsonpickle.decode(json.load((open("repo_data/repo_list.json"))))
 print(len(id_set))
 filtered_set = set()
 for repo_id in tqdm(id_set, desc="Filterprogress"):

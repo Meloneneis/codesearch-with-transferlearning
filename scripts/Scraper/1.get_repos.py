@@ -15,7 +15,8 @@ headers = {
     'Authorization': 'Token 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'
 }
 
-id_set = jsonpickle.decode(json.load((open("repo_name_list.json")))) if os.path.isfile("repo_name_list.json") else set()
+id_set = jsonpickle.decode(json.load((open("repo_data/repo_name_list.json")))) if os.path.isfile(
+    "repo_data/repo_name_list.json") else set()
 
 for query in queries:
     for page_index in range(100):
@@ -31,6 +32,6 @@ for query in queries:
             break
 
 json_set = jsonpickle.encode(id_set)
-with open("repo_name_list.json", "w") as f:
+with open("repo_data/repo_name_list.json", "w") as f:
     json.dump(json_set, f)
 

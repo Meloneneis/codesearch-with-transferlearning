@@ -1,7 +1,5 @@
 import argparse
-import requests
 import itertools
-import time
 import tqdm
 import requests
 import time
@@ -11,8 +9,6 @@ from tqdm import tqdm
 import base64
 import urlfetch
 from tree_sitter import Language, Parser
-import jsonlines
-from transformers import AutoModel
 import langdetect
 
 Language.build_library(
@@ -62,12 +58,12 @@ def main():
     repo_names = set()
     page_index = 9
 
-
     # get all possible repos from queries
     for query in tqdm(queries, desc="Queries processed"):
         status = True
         while status:
-            url = f"https://api.github.com/search/code?q={query}+in:file +language:{args.lang}&per_page=100&page={page_index}"
+            url = f"https://api.github.com/search/code?q={query}+in:file +language:{args.lang}&per_page=100&page=" \
+                  f"{page_index}"
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 for repository in response.json()["items"]:

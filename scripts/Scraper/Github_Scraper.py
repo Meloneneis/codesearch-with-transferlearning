@@ -142,7 +142,7 @@ def main():
     for repo in remove_set:
         repo_names.remove(repo)
     json_set = jsonpickle.encode(repo_names)
-    with open("repo_data/german_repos.json", "w") as f:
+    with open(f"{args.output}.json", "w") as f:
         json.dump(json_set, f)
 
 

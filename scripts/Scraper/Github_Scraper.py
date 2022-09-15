@@ -56,7 +56,7 @@ def main():
         'Authorization': f'Token {args.auth_token}'
     }
     repo_names = set()
-    page_index = 9
+    page_index = 0
 
     # get all possible repos from queries
     for query in tqdm(queries, desc="Queries processed"):
@@ -68,7 +68,7 @@ def main():
             if response.status_code == 200:
                 for repository in response.json()["items"]:
                     repo_names.add(repository["repository"]["full_name"])
-                time.sleep(90)
+                time.sleep(75)
                 page_index += 1
             else:
                 status = False
